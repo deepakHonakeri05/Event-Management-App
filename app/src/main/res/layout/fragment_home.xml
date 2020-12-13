@@ -8,31 +8,22 @@
     tools:context=".ui.home.HomeFragment"
     android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/text_home"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:textAlignment="center"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <EditText
-        android:id="@+id/sampleQuery"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="enter test data"
-        tools:ignore="MissingConstraints" />
+   <TextView
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:text="Upcoming Events"
+       android:layout_gravity="center"
+       android:textSize="23sp"/>
 
     <Button
-        android:id="@+id/sendData"
+        android:id="@+id/addNewEvents"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="sendData"/>
+        android:text="Add new Events"/>
+
+    <ListView
+        android:id="@+id/upcomingEvents"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 
 </LinearLayout>
