@@ -2,9 +2,11 @@ package com.your.company.name.eventmanagementapp.ui.home;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -25,6 +27,7 @@ import com.your.company.name.eventmanagementapp.AddEventActivity;
 import com.your.company.name.eventmanagementapp.R;
 import com.your.company.name.eventmanagementapp.adapterLV;
 import com.your.company.name.eventmanagementapp.eventDataType;
+import com.your.company.name.eventmanagementapp.eventDetailsPage;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,7 +47,7 @@ public class HomeFragment extends Fragment {
 
     // We need this below link
     //@To do : add a custom datatype;
-    public ArrayList<eventDataType> eventList;// contains all events
+    public List<eventDataType> eventList;// contains all events
 
 
     //Create custom arrayAdapter
@@ -67,6 +70,8 @@ public class HomeFragment extends Fragment {
             }
         });
 
+        mDatabaseReference = FirebaseDatabase.getInstance().getReference("Event");
+
         //declaration
         eventsListView = root.findViewById(R.id.upcomingEvents);
         eventList = new ArrayList<>();
@@ -75,8 +80,30 @@ public class HomeFragment extends Fragment {
         // Diplays the events;
         eventsListView.setAdapter(adapterListView);
 
-        //Firebase data
-        mDatabaseReference = FirebaseDatabase.getInstance().getReference();
+
+        ///
+
+        eventsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+                                                                            // i - position, l - id
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+                Intent eventsPageIntent = new Intent(getActivity(), eventDetailsPage.class);
+
+                //we send the data
+                eventsPageIntent.putExtra("EventName",eventList.get(position).getEventName());
+                eventsPageIntent.putExtra("RegistrationLink",eventList.get(position).getRegistrationlink());
+                // add the other fields as well
+                // phone, description
+                //same format
+
+                startActivity(eventsPageIntent);
+
+                //
+            }
+        });
+
+
+        ///
 
         addChildListener();
 
@@ -91,18 +118,16 @@ public class HomeFragment extends Fragment {
         ChildEventListener childEventListener = new ChildEventListener() {
 
             @Override
-            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+            public void onChildAdded(DataSnapshot snapshot, String previousChildName) {
                     // we add new event to the list view : (eventslist)
 
                 eventDataType newEvent = snapshot.getValue(eventDataType.class);
-                /*
-                    @To Do;
-                    newEvent.setEventName( (String) snapshot.child("EventName").getValue());
-                    newEvent.setDescription( (String) snapshot.child("Description").getValue());
+                newEvent.setEventName( (String) snapshot.child("EventName").getValue());
+                newEvent.setDescription( (String) snapshot.child("Description").getValue());
+                newEvent.setRegistrationlink((String) snapshot.child("RegistrationLink").getValue());
+                newEvent.setPhone((String) snapshot.child("ContactPhone").getValue());
 
-                    registration     (same a s above)
-                    contact
-                 */
+                Log.e("Firebase","Data recieved!");
 
                 listKeys.add(snapshot.getKey());
                 //add new event on screen
