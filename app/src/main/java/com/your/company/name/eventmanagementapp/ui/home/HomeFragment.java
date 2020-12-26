@@ -92,6 +92,8 @@ public class HomeFragment extends Fragment {
                 //we send the data
                 eventsPageIntent.putExtra("EventName",eventList.get(position).getEventName());
                 eventsPageIntent.putExtra("RegistrationLink",eventList.get(position).getRegistrationlink());
+                eventsPageIntent.putExtra("Description",eventList.get(position).getDescription());
+                eventsPageIntent.putExtra("ContactPhone",eventList.get(position).getPhone());
                 // add the other fields as well
                 // phone, description
                 //same format

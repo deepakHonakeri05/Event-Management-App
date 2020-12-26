@@ -9,9 +9,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".eventDetailsPage"></activity>
+        <activity android:name=".calender"></activity>
+        <activity android:name=".eventDetailsPage" />
         <activity android:name=".AddEventActivity" />
-        <activity android:name=".homescreen" />
         <activity android:name=".RegistrationActivity" />
         <activity
             android:name=".dashboard"
